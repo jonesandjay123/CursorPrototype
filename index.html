@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>剪影猜謎 App Prototype</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 動畫庫 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      body {
+        background-color: #f0f4f8;
+        font-family: "PingFang TC", "Noto Sans TC", sans-serif;
+      }
+
+      .phone-frame {
+        width: 300px;
+        height: 600px;
+        border: 16px solid #111;
+        border-radius: 36px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        margin: 20px;
+        background-color: white;
+      }
+
+      .phone-frame::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 20px;
+        background-color: #111;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        z-index: 2;
+      }
+
+      .screen {
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .btn-primary {
+        background-color: #3b82f6;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .btn-primary:hover {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .slide-in {
+        animation: slideIn 0.5s ease-in;
+      }
+
+      @keyframes slideIn {
+        0% {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .silhouette {
+        filter: contrast(120%);
+        width: 80%;
+        max-height: 250px;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen p-4 flex flex-col items-center">
+    <h1 class="text-4xl font-bold text-center mb-8 text-indigo-800">
+      剪影猜謎 App Prototype
+    </h1>
+
+    <div class="flex flex-wrap justify-center">
+      <!-- 畫面 1: App 進入畫面 -->
+      <div class="phone-frame">
+        <div
+          class="screen bg-gradient-to-b from-blue-400 to-blue-600 flex flex-col items-center justify-center"
+        >
+          <div
+            class="w-32 h-32 bg-white rounded-full flex items-center justify-center mb-8"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-20 w-20 text-blue-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold text-white mb-6 tracking-wider">
+            剪影猜謎
+          </h2>
+          <p class="text-blue-100 mb-8 text-center px-6">
+            創造有趣的剪影謎題，與朋友同樂！
+          </p>
+          <button class="btn-primary animate-pulse">開始創作</button>
+        </div>
+      </div>
+
+      <!-- 畫面 2: 圖片選擇畫面 -->
+      <div class="phone-frame">
+        <div class="screen p-4">
+          <div class="bg-blue-600 text-white p-4 rounded-t-lg">
+            <h2 class="text-xl font-bold">選擇照片</h2>
+          </div>
+          <div
+            class="flex-1 flex flex-col items-center justify-center gap-6 p-4"
+          >
+            <div
+              class="border-2 border-dashed border-blue-300 rounded-lg w-full h-48 flex items-center justify-center p-4"
+            >
+              <div class="text-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-12 w-12 mx-auto text-blue-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                <p class="mt-2 text-gray-600">點擊上傳照片</p>
+                <p class="text-xs text-gray-500 mt-1">支援 JPG, PNG 格式</p>
+              </div>
+            </div>
+
+            <div class="w-full">
+              <div class="text-center mb-2 text-gray-500">或者</div>
+              <button
+                class="w-full py-4 bg-blue-500 text-white rounded-lg flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+                手繪剪影模式
+              </button>
+            </div>
+          </div>
+          <div class="p-4 bg-gray-100">
+            <button class="btn-primary w-full">下一步</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 畫面 3: 剪影編輯畫面 -->
+      <div class="phone-frame">
+        <div class="screen">
+          <div class="bg-blue-600 text-white p-4">
+            <h2 class="text-xl font-bold">編輯剪影</h2>
+          </div>
+          <div class="flex-1 flex flex-col p-4 gap-4">
+            <div
+              class="h-64 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden"
+            >
+              <img
+                src="https://via.placeholder.com/200"
+                alt="上傳的圖片"
+                class="max-h-full max-w-full"
+              />
+            </div>
+
+            <div class="flex justify-center gap-3 mb-2">
+              <button class="bg-gray-200 p-2 rounded-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-gray-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"
+                  />
+                </svg>
+              </button>
+              <button class="bg-gray-200 p-2 rounded-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-gray-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+              </button>
+              <button class="bg-gray-200 p-2 rounded-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 text-gray-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-sm text-gray-600 mb-1">筆刷大小</p>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value="50"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
+
+            <button class="btn-primary w-full mb-2">剪影化</button>
+            <button
+              class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg font-medium"
+            >
+              取消
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 畫面 4: 出題畫面 -->
+      <div class="phone-frame">
+        <div class="screen bg-gradient-to-b from-purple-400 to-purple-600">
+          <div class="p-4 flex justify-between items-center">
+            <button class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <button class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex-1 flex flex-col items-center justify-center p-6">
+            <h2
+              class="text-3xl font-bold text-white mb-8 animate-pulse slide-in"
+            >
+              我是誰？
+            </h2>
+
+            <div class="flex justify-center items-center mb-8">
+              <img src="./pic1.png" alt="剪影" class="silhouette slide-in" />
+            </div>
+
+            <div class="w-full mb-6">
+              <div class="flex justify-between mb-2">
+                <p class="text-white text-sm">選擇背景顏色</p>
+                <p class="text-white text-sm">拖曳調整位置</p>
+              </div>
+              <div class="flex gap-2 justify-center">
+                <button
+                  class="w-8 h-8 rounded-full bg-purple-600 border-2 border-white"
+                ></button>
+                <button class="w-8 h-8 rounded-full bg-blue-500"></button>
+                <button class="w-8 h-8 rounded-full bg-green-500"></button>
+                <button class="w-8 h-8 rounded-full bg-yellow-500"></button>
+                <button class="w-8 h-8 rounded-full bg-red-500"></button>
+              </div>
+            </div>
+
+            <button class="btn-primary w-full">確認出題</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 畫面 5: 答案揭曉畫面 -->
+      <div class="phone-frame">
+        <div class="screen bg-gradient-to-b from-indigo-400 to-indigo-600">
+          <div class="p-4 flex justify-end">
+            <button class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex-1 flex flex-col items-center justify-center p-6">
+            <h2
+              class="text-3xl font-bold text-white mb-6 animate__animated animate__bounceIn"
+            >
+              揭曉！
+            </h2>
+
+            <div class="relative mb-8">
+              <div
+                class="absolute inset-0 bg-white rounded-lg animate__animated animate__fadeIn"
+                style="z-index: 1; animation-delay: 0.5s"
+              ></div>
+              <img
+                src="./pic2.png"
+                alt="原始圖片"
+                class="relative rounded-lg animate__animated animate__zoomIn"
+                style="z-index: 2; animation-delay: 1s"
+              />
+            </div>
+
+            <p
+              class="text-white text-xl font-bold mb-6 animate__animated animate__fadeIn"
+              style="animation-delay: 1.5s"
+            >
+              貓咪睡午覺
+            </p>
+
+            <button
+              class="flex items-center justify-center bg-white text-indigo-600 py-3 px-6 rounded-full font-bold animate__animated animate__fadeIn"
+              style="animation-delay: 2s"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                />
+              </svg>
+              播放語音
+            </button>
+          </div>
+
+          <div class="p-4 bg-indigo-700 flex justify-center">
+            <button
+              class="bg-white text-indigo-700 py-2 px-6 rounded-full font-bold"
+            >
+              再來一次
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-8 text-center text-gray-500 text-sm">
+      <p>© 2023 剪影猜謎 App Prototype</p>
+    </footer>
+
+    <script>
+      // 若需要增加簡單互動效果可在此處添加
+      document.addEventListener("DOMContentLoaded", function () {
+        // 僅作為展示 UI，無實際功能
+        console.log("剪影猜謎 App Prototype 已載入");
+      });
+    </script>
+  </body>
+</html>
