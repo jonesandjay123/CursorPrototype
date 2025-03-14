@@ -1,21 +1,3 @@
-Subject: Update on Minion Assistant UI Deployment to GKP
-
-Hi Team,
-
-Here’s a quick update on today’s progress for deploying Minion Assistant UI to GKP:
-
-The application successfully built and the Docker image was pushed to containerregistry-na.jpmchase.net/containers-sandbox/amimrisknewton/minion-assistant-ui.
-I listed available EKS clusters and found only four: s33526-airflow-3, s33526-mwtapps-3, s33526-telescope-use1v3, and s33527-dremio-1. I didn’t see a cluster related to minion-assistant.
-Since I’ve worked with s33526-telescope-use1v3 before, I connected to it and retrieved existing namespaces, but none seem to match minion-assistant-ui.
-Next Steps:
-Confirm whether a dedicated cluster or namespace for minion-assistant-ui exists or needs to be created.
-If needed, request the appropriate resources for deployment.
-Once the namespace is available, proceed with deploying the application to GKP.
-Let me know the best approach.
-
-
-
-
 # 3D 電子寵物 App 視覺設計藍圖
 
 ## 專案簡介
