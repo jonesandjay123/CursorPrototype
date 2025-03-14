@@ -1,3 +1,20 @@
+Subject: Update on Minion Assistant UI Deployment to GKP
+
+Hi Team,
+
+Here’s a quick update on today’s progress for deploying Minion Assistant UI to GKP:
+
+The application successfully built and the Docker image was pushed to containerregistry-na.jpmchase.net/containers-sandbox/amimrisknewton/minion-assistant-ui.
+I connected to the EKS cluster s33526-telescope-use1v3 and retrieved existing namespaces.
+The next step is to confirm the correct namespace format and proceed with Kubernetes deployment (deployment.yaml and service.yaml).
+Let me know if you have any input on the namespace or if there are any existing conventions I should follow.
+
+Thanks,
+
+
+
+
+
 # 3D 電子寵物 App 視覺設計藍圖
 
 ## 專案簡介
